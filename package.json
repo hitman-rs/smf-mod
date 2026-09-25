@@ -1,0 +1,16 @@
+{
+	"name": "smf-mod",
+	"version": "0.0.0",
+	"description": "An SMF mod.",
+	"license": "LGPL-3.0-only",
+	"private": true,
+	"devDependencies": {
+		"@biomejs/biome": "2.5.14",
+		"conventional-changelog-conventionalcommits": "^6.1.0",
+		"husky": "^9.1.7",
+		"semantic-release-export-data": "^1.0.1"
+	},
+	"scripts": {
+		"prepare": "husky; git config merge.qn.name QuickEntity; git config merge.qn.driver '.github/qn-git-merge %O %A %B'"
+	}
+}

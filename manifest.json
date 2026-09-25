@@ -1,0 +1,12 @@
+{
+	"version": "0.1.0",
+	"id": "YourPreferredAlias.AnIDForTheMod",
+	"name": "Test Mod",
+	"description": "A truly amazing mod",
+	"authors": ["Your Preferred Alias"],
+	"frameworkVersion": "3.0.0-beta.4",
+	"url": null,
+	"data": {
+		"supportedPlatforms": ["h3"]
+	}
+}
