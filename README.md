@@ -11,6 +11,8 @@ The preferred template for Simple Mod Framework mods.
     -   Conventional commits mean that you don't have to do anything; any change you make to your mod can automatically be converted into a release with the versions all handled for you
         -   This also means that your versions are fully compatible with Semantic Versioning, which improves the framework's ability to know how your mod has changed
     -   Your mod's manifest will be edited for you; you don't have to set anything up yourself
+-   Automatic Nexus Mods upload
+    -   If you have Nexus Mods Premium, you can supply an API key to automatically publish new versions of the mod to Nexus alongside each GitHub release, including updating the changelog
 -   Automatic formatting
     -   Biome is run before each commit, and a pre-made configuration for it is included
 -   Better entity handling for Git
@@ -88,3 +90,33 @@ The result of this would be a changelog like this:
     -   new feature 1
 -   Improvements
     -   some improvement
+
+### Miscellaneous features
+
+#### Nexus Mods upload
+
+If you have Nexus Mods Premium, you can supply an API key to the template as a GitHub Actions secret to enable it to automatically update your mod on Nexus.
+
+First, acquire your personal API key from the [Nexus Mods settings page](https://www.nexusmods.com/settings/api-keys). Then, add a repository secret under "Actions secrets and variables" (`https://github.com/<your-repo>/settings/secrets/actions`) with the name `NEXUS_API_KEY` and paste your API key.
+
+To configure which mod and file to upload to, go to the Variables section and add two repository variables `NEXUS_MOD_ID` and `NEXUS_FILE_ID`, containing the unique mod ID and file ID respectively. You can find these values in the Advanced section of the Files tab:
+
+![Nexus Mods Advanced link](https://github.com/Nexus-Mods/upload-action/blob/main/docs/images/modpage.png?raw=true)
+
+That's it! A new version of the file will automatically be uploaded whenever a GitHub release is created.
+
+You can configure this further with the following variables:
+- `NEXUS_ARCHIVE_EXISTING_VERSION`: set to `true` to automatically archive older versions of the mod (disabled by default)
+- `NEXUS_SHOW_REQUIREMENTS_POPUP`: set to `true` to show users the requirements popup before downloading the mod from the Nexus Mods website (disabled by default)
+
+#### Excluding files from the mod ZIP
+
+The `.modignore` file in the root of the mod can be used to exclude files from the final ZIP that users download. For example, you could add a `*.psd` entry to exclude all Photoshop source files, reducing the mod's filesize.
+
+#### Formatter
+
+The initial setup command installs a pre-commit hook that runs the Biome formatter. The configuration for this is located in the `.github` folder - you can customise it as you wish.
+
+#### Updating the template
+
+If the template has received updates that you want to incorporate into your mod repository, just delete and replace the `.github` folder - it contains everything to do with the template.

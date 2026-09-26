@@ -187,3 +187,19 @@ jobs:
                   repository: ${{ github.repository }}
                   files: |
                       mod.framework.zip
+
+            - name: Upload to Nexus
+              if: ${{ steps.newVersion.outputs.new-release-version && secrets.NEXUS_API_KEY && vars.NEXUS_MOD_ID && vars.NEXUS_FILE_ID }}
+              uses: Nexus-Mods/upload-action@98532f7670c27cbecc78fae03fa3e278147827e2
+              with:
+                  api_key: ${{ secrets.NEXUS_API_KEY }}
+                  file_id: ${{ vars.NEXUS_FILE_ID }}
+                  filename: mod.framework.zip
+                  version: ${{ steps.newVersion.outputs.new-release-version }}
+                  display_name: ${{ steps.modName.outputs.prop }}
+                  description: "Install with the Simple Mod Framework."
+                  update_mod_version: true
+                  mod_id: ${{ vars.NEXUS_MOD_ID }}
+                  changelog: ${{ steps.changelog.outputs.changes }}
+                  archive_existing_version: ${{ vars.NEXUS_ARCHIVE_EXISTING_VERSION }}
+                  show_requirements_pop_up: ${{ vars.NEXUS_SHOW_REQUIREMENTS_POPUP }}
