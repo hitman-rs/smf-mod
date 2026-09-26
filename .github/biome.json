@@ -1,5 +1,6 @@
 {
 	"$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
+	"root": false,
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -23,6 +24,12 @@
 		"enabled": true,
 		"rules": {
 			"preset": "recommended"
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"semicolons": "asNeeded",
+			"trailingCommas": "none"
 		}
 	},
 	"assist": {

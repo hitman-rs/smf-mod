@@ -1,3 +1,2 @@
-.releaserc
-node_modules
-pnpm-lock.yaml
+.github/biome
+.github/biome.exe

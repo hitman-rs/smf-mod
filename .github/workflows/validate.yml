@@ -24,8 +24,6 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  corepack enable
-                  pnpm install
                   cd .github
                   curl -L -o smf.zip https://github.com/hitman-rs/simple-mod-framework/releases/latest/download/Linux.zip
                   unzip smf.zip

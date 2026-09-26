@@ -25,9 +25,7 @@ jobs:
                   node-version: 24
 
             - name: Install dependencies
-              run: |
-                  corepack enable
-                  pnpm install
+              run: npm install @biomejs/biome@2.5.14 conventional-changelog-conventionalcommits@^6.1.0 semantic-release-export-data@^1.0.1
 
             - name: Create .releaserc
               env:
@@ -64,6 +62,10 @@ jobs:
               with:
                   repository: hitman-rs/simple-mod-framework
                   token: ${{ secrets.GITHUB_TOKEN }}
+            
+            - name: Set up 7-Zip
+              if: ${{ steps.newVersion.outputs.new-release-version }}
+              uses: milliewalky/setup-7-zip@ce4c26956d369e4cce6c1a7c114a4ed6c98f458f
 
             - name: Update manifest.json version
               if: ${{ steps.newVersion.outputs.new-release-version }}
@@ -144,7 +146,14 @@ jobs:
 
             - name: Format
               if: ${{ steps.newVersion.outputs.new-release-version }}
-              run: pnpm exec biome format --write
+              run: npx @biomejs/biome format --write
+
+            - name: Remove unnecessary files
+              if: ${{ steps.newVersion.outputs.new-release-version }}
+              continue-on-error: true
+              run: |
+                  rm -r .releaserc node_modules package.json package-lock.json
+                  git restore package.json package-lock.json
 
             - name: Commit changes
               if: ${{ steps.newVersion.outputs.new-release-version }}
@@ -165,20 +174,8 @@ jobs:
 
             - name: Copy files
               if: ${{ steps.newVersion.outputs.new-release-version }}
-              env:
-                  TARGETDIR: ${{ steps.modID.outputs.prop }}
               run: |
-                  mkdir $TARGETDIR
-                  for file in *;do test "$file" != "$TARGETDIR" && cp -r "$file" "$TARGETDIR/";done
-                  rm -rf "$TARGETDIR/node_modules"
-                  rm "$TARGETDIR/package.json" "$TARGETDIR/package-lock.json" "$TARGETDIR/README.md"
-
-            - name: Create ZIP
-              if: ${{ steps.newVersion.outputs.new-release-version }}
-              uses: TheDoctor0/zip-release@4fb9e4ff72847dd3d1c111cf63834e353ed7cb3d
-              with:
-                  filename: mod.framework.zip
-                  path: ${{ steps.modID.outputs.prop }}
+                  7z a -r mod.framework.zip * -xr@.modignore "-x!.modignore" "-x!.git" "-x!.github" "-x!.gitattributes" "-x!.gitignore"
 
             - name: Release
               if: ${{ steps.newVersion.outputs.new-release-version }}
