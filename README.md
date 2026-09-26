@@ -13,6 +13,8 @@ The preferred template for Simple Mod Framework mods.
     -   Your mod's manifest will be edited for you; you don't have to set anything up yourself
 -   Automatic formatting
     -   Biome is run before each commit, and a pre-made configuration for it is included
+-   Better entity handling for Git
+    -   The template includes a custom Git merge driver for QuickEntity files that reduces merge conflicts when entity.json files are changed at the same time
 -   LGPLv3 license
     -   Mods created with this template are permissively licensed; anyone can alter your mod, but they have to give credit and provide a list of what they have changed
 -   Automatic updating of `frameworkVersion`
@@ -33,13 +35,11 @@ GitHub is a place for hosting Git repositories, which lets you more easily see b
 
 You'll need Git, obviously, and preferably also a GUI client if you aren't experienced with Git's command line interface. GitHub Desktop is recommended, but VS Code includes its own as well (though it can be unintuitive at times and functions more as a list of Git commands than as an easy-to-use interface).
 
-You'll also want Node.js for formatting. You can download the latest release from [here](https://nodejs.org/en) - either LTS or Current is fine.
-
 ### Cloning the template
 
 To get started, click the green "Use this template" button on GitHub and create a new repository. Give it whatever name you like and make it public or private (if you want to make it private, then make sure to change it back to public when the mod is released, else there's no point in this template). You can then clone the repository directly into your Mods folder (so the repository gets its own folder under Mods where you can work) - make sure to rename the created folder according to the correct mod ID.
 
-Once you've done that, go to the new folder in your Mods folder and run the command `corepack enable && pnpm install` to set up automatic formatting.
+Once you've done that, go to the new folder in your Mods folder and run the command `.github/setup` to set up automatic formatting and the custom Git merger.
 
 ### Making a new mod
 
