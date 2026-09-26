@@ -189,7 +189,11 @@ jobs:
                       mod.framework.zip
 
             - name: Upload to Nexus
-              if: ${{ steps.newVersion.outputs.new-release-version && secrets.NEXUS_API_KEY && vars.NEXUS_MOD_ID && vars.NEXUS_FILE_ID }}
+              env:
+                  NEXUS_API_KEY: ${{ secrets.NEXUS_API_KEY }}
+                  NEXUS_MOD_ID: ${{ vars.NEXUS_MOD_ID }}
+                  NEXUS_FILE_ID: ${{ vars.NEXUS_FILE_ID }}
+              if: ${{ steps.newVersion.outputs.new-release-version && env.NEXUS_API_KEY != '' && env.NEXUS_MOD_ID != '' && env.NEXUS_FILE_ID != '' }}
               uses: Nexus-Mods/upload-action@98532f7670c27cbecc78fae03fa3e278147827e2
               with:
                   api_key: ${{ secrets.NEXUS_API_KEY }}
