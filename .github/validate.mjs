@@ -4,7 +4,7 @@ const output = JSON.parse(
 	child_process.execFileSync(".github/Simple Mod Framework", [
 		"validate-mod",
 		"--lenient",
-		"."
+		".."
 	])
 )
 
@@ -12,6 +12,6 @@ if (output.result === "pass") {
 	console.log("Validation passed")
 } else {
 	console.log("Validation failed")
-	console.log(output)
+	console.error(output.message)
 	process.exit(1)
 }
