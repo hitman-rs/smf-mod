@@ -117,6 +117,10 @@ The `.modignore` file in the root of the mod can be used to exclude files from t
 
 The initial setup command installs a pre-commit hook that runs the Biome formatter. The configuration for this is located in the `.github` folder - you can customise it as you wish.
 
+#### 7-Zip file format
+
+If your mod contains a lot of content and would benefit from the improved compression of the 7-Zip format, you can set the `USE_7Z` repository variable to `true` to automatically create and upload 7z files instead of ZIPs.
+
 #### Updating the template
 
 If the template has received updates that you want to incorporate into your mod repository, just delete and replace the `.github` folder - it contains everything to do with the template.
