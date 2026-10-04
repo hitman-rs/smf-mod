@@ -1,4 +1,5 @@
 {
+	"$schema": "https://raw.githubusercontent.com/hitman-rs/simple-mod-framework/main/docs/.gitbook/assets/manifest-schema.json",
 	"version": "0.1.0",
 	"id": "YourPreferredAlias.AnIDForTheMod",
 	"name": "Test Mod",
