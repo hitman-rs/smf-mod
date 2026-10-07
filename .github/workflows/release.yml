@@ -77,6 +77,7 @@ jobs:
                   cd .github
                   curl -L -o smf.zip https://github.com/hitman-rs/simple-mod-framework/releases/latest/download/Linux.zip
                   unzip smf.zip
+                  rm smf.zip
 
             - name: Validate mod
               if: ${{ steps.newVersion.outputs.new-release-version }}
@@ -171,7 +172,7 @@ jobs:
               if: ${{ steps.newVersion.outputs.new-release-version }}
               continue-on-error: true
               run: |
-                  rm -r .releaserc node_modules package.json package-lock.json
+                  rm -r .releaserc node_modules package.json package-lock.json ".github/Simple Mod Framework" ".github/qnjs"
                   git restore package.json package-lock.json
 
             - name: Commit changes
