@@ -93,6 +93,10 @@ The result of this would be a changelog like this:
 
 ### Miscellaneous features
 
+#### Applying translation files
+
+SMF allows users to contribute translations to mods by generating JSON patch files. The template includes a helper you can use to apply these in the `.github` folder; simply drag and drop the user's provided JSON onto the `apply-translations.exe` (or, if you are using Linux, the `apply-translations`) file and your manifest will automatically be filled out with the user's provided translations.
+
 #### Nexus Mods upload
 
 If you have Nexus Mods Premium, you can supply an API key to the template as a GitHub Actions secret to enable it to automatically update your mod on Nexus.
