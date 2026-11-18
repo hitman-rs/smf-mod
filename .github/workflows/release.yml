@@ -185,7 +185,7 @@ jobs:
 
             - name: Format
               if: ${{ steps.newVersion.outputs.new-release-version }}
-              run: npx @biomejs/biome format --write
+              run: npx @biomejs/biome format --write --config-path .github/biome.json
 
             - name: Remove unnecessary files
               if: ${{ steps.newVersion.outputs.new-release-version }}
