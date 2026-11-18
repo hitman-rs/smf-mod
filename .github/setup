@@ -23,10 +23,15 @@ fi
 if [ -f .git/hooks/pre-commit ]; then
     rm .git/hooks/pre-commit
 fi
+if [ -f .git/hooks/pre-merge-commit ]; then
+    rm .git/hooks/pre-merge-commit
+fi
 echo '#!/bin/sh' > .git/hooks/pre-commit
 echo 'set -eu' >> .git/hooks/pre-commit
 echo './.github/biome format --write --config-path .github/biome.json' >> .git/hooks/pre-commit
 echo 'git update-index --again' >> .git/hooks/pre-commit
+cp .git/hooks/pre-commit .git/hooks/pre-merge-commit
 chmod +x .git/hooks/pre-commit
+chmod +x .git/hooks/pre-merge-commit
 
 echo "Done!"

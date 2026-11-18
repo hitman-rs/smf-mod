@@ -20,6 +20,8 @@ if errorlevel 1 (
 if not exist ".git\hooks" mkdir ".git\hooks"
 if exist ".git\hooks\pre-commit" del /f /q ".git\hooks\pre-commit"
 if exist ".git\hooks\pre-commit.cmd" del /f /q ".git\hooks\pre-commit.cmd"
+if exist ".git\hooks\pre-merge-commit" del /f /q ".git\hooks\pre-merge-commit"
+if exist ".git\hooks\pre-merge-commit.cmd" del /f /q ".git\hooks\pre-merge-commit.cmd"
 
 (
 	echo #!/bin/sh
@@ -27,6 +29,8 @@ if exist ".git\hooks\pre-commit.cmd" del /f /q ".git\hooks\pre-commit.cmd"
 	echo ./.github/biome format --write --config-path .github/biome.json
 	echo git update-index --again
 ) > ".git\hooks\pre-commit"
+
+copy ".git\hooks\pre-commit" ".git\hooks\pre-merge-commit" >nul 2>&1
 
 (
 	echo @echo off
@@ -40,6 +44,8 @@ if exist ".git\hooks\pre-commit.cmd" del /f /q ".git\hooks\pre-commit.cmd"
 	echo popd
 	echo exit /b %%EXITCODE%%
 ) > ".git\hooks\pre-commit.cmd"
+
+copy ".git\hooks\pre-commit.cmd" ".git\hooks\pre-merge-commit.cmd" >nul 2>&1
 
 echo Done!
 popd
